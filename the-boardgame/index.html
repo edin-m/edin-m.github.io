@@ -2,6 +2,18 @@
 <html>
 <head>
 
+<style type="text/css">
+	button {
+	    background-color: #4CAF50; /* Green */
+	    border: none;
+	    color: white;
+	    padding: 15px 32px;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+	    font-size: 16px;
+	}
+</style>
 
 </head>
 <body>
@@ -9,7 +21,8 @@
 		How to play (work in progress): <br />
 		Player 1 is first, starts at the bottom right. Player 2 starts at the top left.<br />
 		After the selection is done, click confirm.<br />
-		Rules: You can only draw boxes with size AxB where A and B are dice-rolled values.
+		Blue is the color of the current player.<br />
+		Rules: You can only draw boxes with size AxB where A and B are dice-rolled values.<br />
 	</div>
 	<hr />
 	<canvas id="canvas" width="600" height="600" style="border: 1px solid black"></canvas>
@@ -19,7 +32,7 @@
 	<script src="index.js"></script>
 
 	<div>
-		<!-- <button id="rollDice" onclick="rollDice()">Roll Dice</button> -->
+		<!-- <button id="rollDice" onclick="rollDice()" disabled></button> -->
 	</div>
 	<div>
 		<span>Current player:</span>
