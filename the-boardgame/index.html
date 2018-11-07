@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+</head>
+<body>
+	<canvas id="canvas" width="600" height="600" style="border: 1px solid black"></canvas>
+
+	<br />
+
+	<script src="index.js"></script>
+
+	<div>
+		<button id="rollDice" onclick="rollDice()">Roll Dice</button>
+	</div>
+	<div>
+		<span>Current player:</span>
+		<span id="currentPlayerName"></span>
+	</div>
+	<div>
+		<span>Dice 1 rolled value:</span>
+		<span id="dice1Value"></span>
+	</div>
+	<div>
+		<span>Dice 2 rolled value:</span>
+		<span id="dice2Value"></span>
+	</div>
+	<div>
+		<button id="confirmSelection" onclick="confirmSelection()" disabled>Confirm</button>
+		<button id="skipRound" onclick="skipRound()">Skip</button>
+	</div>
+	<hr />
+	<div>
+		<span>Player 1 score:</span>
+		<span><label id="player1Score"></label></span>
+	</div>
+	<div>
+		<span>Player 2 score:</span>
+		<span><label id="player2Score"></label></span>
+	</div>
+
+	</body>
+</html>
