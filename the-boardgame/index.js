@@ -8,8 +8,7 @@ var diceValueElem;
 var currentPlayerNameElem;
 var diceElem = {
 	dice1ValueElem: null,
-	dice2ValueElem: null,
-	rollDiceBtnElem: null
+	dice2ValueElem: null
 };
 var confirmSelectionBtnElem;
 var scoreElem = {
@@ -27,7 +26,6 @@ function onWindowLoad() {
 	scoreElem.player1Score = document.getElementById("player1Score");
 	scoreElem.player2Score = document.getElementById("player2Score");
 
-	diceElem.rollDiceBtnElem = document.getElementById("rollDice");
 	diceElem.dice1ValueElem = document.getElementById("dice1Value");
 	diceElem.dice2ValueElem = document.getElementById("dice2Value");
 
@@ -85,7 +83,6 @@ function confirmSelection() {
 	diceElem.dice1ValueElem.innerHTML = '';
 	diceElem.dice2ValueElem.innerHTML = '';
 
-	diceElem.rollDiceBtnElem.disabled = false;
 	confirmSelectionBtnElem.disabled = true;
 
 	updateScoreLabels();
@@ -102,7 +99,6 @@ function rollDice() {
 	diceElem.dice1ValueElem.innerHTML = dice1;
 	diceElem.dice2ValueElem.innerHTML = dice2;
 
-	diceElem.rollDiceBtnElem.disabled = true;
 	confirmSelectionBtnElem.disabled = false;
 }
 
