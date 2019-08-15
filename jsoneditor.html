@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html><head>
+    <style>
+        textarea {
+            font-size: 14pt;
+        }
+    </style>
+</head>
+<body>
+
+<div style="width: 100%; height: 20px;" id="errorMsg"></div>
+<div style="clear: both;"></div>
+
+<div style="
+    /* width: 200px; */
+    float: left;
+    /* height: 500px; */
+    border: 1px solid black;
+">
+    <textarea id="ta1" rows="80" cols="150" style="margin: 0px; width: 833px; height: 981px;"
+        onchange="onta1change()"></textarea>
+    
+    </div>
+<div style="
+    width: 50px;
+    float: left;
+    height: 500px;
+    /* border: 1px solid black; */
+">
+    
+    <button onclick="moveright()" style="
+    margin: 10px;
+"> &gt;&gt; </button>
+    <button onclick="moveleft()" style="
+    margin: 10px;
+"> &lt;&lt; </button>
+    
+    </div>
+<div style="
+    /* width: 200px; */
+    float: left;
+    /* height: 500px; */
+    border: 1px solid black;
+"><textarea id="ta2" style="margin: 0px; width: 870px; height: 981px;"
+    onchange="onta2change()"></textarea>
+    
+    </div>
+
+    <script type="text/javascript">
+var ta1 = document.getElementById('ta1');
+var ta2 = document.getElementById('ta2');
+var errorMsg = document.getElementById('errorMsg');
+
+function onta1change() {
+    errorMsg.innerHtml = '';
+}
+
+function onta2change() {
+    errorMsg.innerHtml = '';
+}
+
+function moveright() {
+    var obj = {};
+    var text = ta1.value;
+    try {
+        var value = eval('obj = ' + text);
+        var str = JSON.stringify(value, null, 4);
+        ta2.value = str;
+        localStorage.setItem('jsoneditor', str);
+    } catch (err) {
+        console.log(err);
+        errorMsg.innerHTML = err.toString();
+    } 
+} 
+
+function moveleft() {
+    ta2.value = JSON.stringify(JSON.parse(ta2.value), null, 4);
+    ta1.value = prettify(ta2.value);
+} 
+
+function prettify(json) {
+    return json.replace(/\"([^(\")"]+)\":/g,"$1:");
+}
+
+window.onload = function() {
+    var item = localStorage.getItem('jsoneditor');
+    if (!!item) {
+        ta1.value = prettify(item);
+        ta2.value = item;
+    }
+};
+
+</script>
+
+
+</body></html>
