@@ -10,15 +10,18 @@
 
 <script>
 
+var urlParams = new URLSearchParams(window.location.search);
 var startDate = "2022-01-23";
 
 $(document).ready(function () {	
-	$(".entry").each(function() {
-		var weeks = Number($(this).attr('data-show'));
-		if (moment() < moment(startDate, 'YYYY-MM-DD').add(weeks, 'weeks')) {
-			$(this).hide()
-		}
-	});
+	if (!urlParams.has('ignore')) {
+		$(".entry").each(function() {
+			var weeks = Number($(this).attr('data-show'));
+			if (moment() < moment(startDate, 'YYYY-MM-DD').add(weeks, 'weeks')) {
+				$(this).hide()
+			}
+		});
+	}
 });
 </script>
 
@@ -55,6 +58,24 @@ $(document).ready(function () {
 	<div class="entry" data-show="4">
 		<a href="Predavanje-2-4.pdf">Predavanje 2-4</a><br />
 		<a href="Vjezba-2-4.pdf">Vjezba 2-4</a><br />
+	</div>
+	<hr />
+	</div>
+
+	<div>
+	Sedmica 2-5
+	<div class="entry" data-show="5">
+		<a href="Predavanje-2-5.pdf">Predavanje 2-5</a><br />
+		<a href="Vjezba-2-5.pdf">Vjezba 2-5</a><br />
+	</div>
+	<hr />
+	</div>
+
+	<div>
+	Sedmica 2-6
+	<div class="entry" data-show="6">
+		<a href="Predavanje-2-6.pdf">Predavanje 2-6</a><br />
+		<a href="Vjezba-2-6.pdf">Vjezba 2-6</a><br />
 	</div>
 	<hr />
 	</div>
