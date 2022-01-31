@@ -1,124 +1,151 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-</head>
-<body>
+<style>
+.entrydate {
+	float: right;
+}
+.highlight {
+	background: #8f8f8f12;
+}
+.unos {
+	padding:5px;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.unos:hover {
+	background:#5454541f;
+}
+</style>
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body style="margin:50px;">
+  
 <script>
 
 var urlParams = new URLSearchParams(window.location.search);
 var startDate = "2022-01-16";
 
-$(document).ready(function () {	
+var datatable = [
+	{
+		unostitle: 'Materijal',
+		weekno: -1,
+		list: [
+			{
+				href: 'nastavni_kalendar_2021-2022.pdf',
+				text: 'nastavni_kalendar_2021-2022.pdf'
+			},
+			{
+				href: 'baze_podataka_npp.pdf',
+				text: 'baze_podataka_npp.pdf'
+			},
+			{
+				href: 'testna.sql',
+				text: 'testna.sql'
+			}
+		],
+		ignoreweek: true,
+		hide: false
+	}
+];
+
+var skipsedmice = new Set([14]);
+var skipvjezbe = new Set([1, 14]);
+(function() {
+	for (var i = 19; i >= 1; i--) {
+		if (skipsedmice.has(i)) continue;
+		var entry = {
+			unostitle: `Sedmica 2-${i}`,
+			weekno: i,
+			list: [
+				{ href: `Predavanje-2-${i}.pdf`, text: `Predavanje 2-${i}` }
+			]
+		};
+		if (!skipvjezbe.has(i)) {
+			entry.list.push(
+				{ href: `Vjezba-2-${i}.pdf`, text: `Vjezba 2-${i}` }
+			);
+		}
+		if (moment() >= moment(startDate, 'YYYY-MM-DD').add(entry.weekno, 'weeks')) {
+			entry.hide = false;
+		} else {
+			entry.hide = true;
+		}
+		datatable.push(entry);
+	}
+}());
+
+var unos_template = String.raw`
+	<div class="unos" data-show="$WEEKNO">
+		<div>
+			<div style="float:left"><h6>$UNOSTITLE</h6></div><div style="float:right" class="entrydate" data-show="$WEEKNO"></div>
+			<div style="clear:both;"></div>
+		</div>
+		<div class="entry" data-show="$WEEKNO">
+			$ROWS
+		</div>
+	</div>`;
+
+var row_template = String.raw`<a target="_blank" href="$HREF">$TEXT</a><br />`;
+
+$(document).ready(function () {
+	
+	(function() {
+		datatable.forEach(function(dataitem) {
+			if (dataitem.ignore) return;
+			var entries = '';
+			dataitem.list.forEach(function(listitem) {
+				entries += row_template.replace('$HREF', listitem.href).replace('$TEXT', listitem.text);
+			});
+			var unoshtml = unos_template.replace('$ROWS', entries).replaceAll('$WEEKNO', dataitem.weekno).replace('$UNOSTITLE', dataitem.unostitle);
+			$('#content2').append(unoshtml);
+		});
+	}());
+
 	if (!urlParams.has('ignore')) {
-		$(".entry").each(function() {
+		$(".unos").each(function() {
 			var weeks = Number($(this).attr('data-show'));
 			if (moment() < moment(startDate, 'YYYY-MM-DD').add(weeks, 'weeks')) {
 				$(this).hide()
 			}
 		});
 	}
+		
+	$(".entrydate").each(function() {
+		var weeks = Number($(this).attr('data-show'));
+		if (weeks < 0) return;
+		var theweek =  moment(startDate, 'YYYY-MM-DD').add(weeks+1, 'weeks');
+		var parent = $(this).parents('.unos');
+		if (moment() >= theweek) {
+			parent.addClass('highlight');
+		}
+		$(this).html(theweek.format('YYYY-MM-DD'));
+	});
 });
+
 </script>
 
-<div id="content">
-
-	<a href="nastavni_kalendar_2021-2022.pdf">nastavni_kalendar_2021-2022.pdf</a><br />
-	<hr />
-
-	<div>
-	Sedmica 2-1
-	<div class="entry" data-show="1">
-		<a href="Ponavljanje-2-1.pdf">Ponavljanje 2-1</a><br />
-	</div>
-	<hr />
-	</div>
-
-	<div>
-	Sedmica 2-2
-	<div class="entry" data-show="2">
-		<a href="Predavanje-2-2.pdf">Predavanje 2-2</a><br />
-		<a href="Vjezba-2-2.pdf">Vjezba 2-2</a><br />
-	</div>
-	<hr />
-	</div>
-
-	<div>
-	Sedmica 2-3
-	<div class="entry" data-show="3">
-		<a href="Predavanje-2-3.pdf">Predavanje 2-3</a><br />
-		<a href="Vjezba-2-3.pdf">Vjezba 2-3</a><br />
-	</div>
-	<hr />
-	</div>
-
-	<div>
-	Sedmica 2-4
-	<div class="entry" data-show="4">
-		<a href="Predavanje-2-4.pdf">Predavanje 2-4</a><br />
-		<a href="Vjezba-2-4.pdf">Vjezba 2-4</a><br />
-	</div>
-	<hr />
-	</div>
-
-	<div>
-	Sedmica 2-5
-	<div class="entry" data-show="5">
-		<a href="Predavanje-2-5.pdf">Predavanje 2-5</a><br />
-		<a href="Vjezba-2-5.pdf">Vjezba 2-5</a><br />
-	</div>
-	<hr />
-	</div>
-	<div>
-	Sedmica 2-6
-	<div class="entry" data-show="6">
-		<a href="Predavanje-2-6.pdf">Predavanje 2-6</a><br />
-		<a href="Vjezba-2-6.pdf">Vjezba 2-6</a><br />
-	</div>
-	<hr />
-	</div>
-
-	<div>
-	Sedmica 2-7
-	<div class="entry" data-show="7">
-		<a href="Predavanje-2-7.pdf">Predavanje 2-7</a><br />
-		<a href="Vjezba-2-7.pdf">Vjezba 2-7</a><br />
-	</div>
-	<hr />
-	</div>
-	
-	<div>
-	Sedmica 2-8
-	<div class="entry" data-show="8">
-		<a href="Predavanje-2-8.pdf">Predavanje 2-8</a><br />
-		<a href="Vjezba-2-8.pdf">Vjezba 2-8</a><br />
-	</div>
-	<hr />
-	</div>
-
-
-	<div>
-	Sedmica 2-9
-	<div class="entry" data-show="9">
-		<a href="Predavanje-2-9.pdf">Predavanje 2-9</a><br />
-		<a href="Vjezba-2-9.pdf">Vjezba 2-9</a><br />
-	</div>
-	<hr />
-	</div>
-
-
-	<div>
-	Materijal
-	<div class="" data-show="">
-		<a href="testna.sql">testna.sql</a><br />
-	</div>
-	<hr />
-	</div>
+<div id="content2" style="width:50%;">
+	<h1>Baze podataka</h1><br />
 </div>
 
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+  
+  
 </body>
 </html>
