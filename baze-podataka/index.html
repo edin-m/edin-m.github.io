@@ -51,8 +51,16 @@ var datatable = [
 				text: 'baze_podataka_npp.pdf'
 			},
 			{
+				href: 'sql-referenca.pdf',
+				text: 'SQL referenca'
+			},
+			{
 				href: 'testna.sql',
 				text: 'testna.sql'
+			},
+			{
+				href: 'https://www.w3schools.com/sql/default.asp',
+				text: 'w3schools.com/sql'
 			}
 		],
 		ignoreweek: true,
@@ -72,21 +80,22 @@ var additionallist = {
 	} //*/
 };
 
+var SEMESTAR = 2;
 var skipsedmice = new Set([14]);
 var skipvjezbe = new Set([1]);
 (function() {
 	for (var i = 19; i >= 1; i--) {
 		if (skipsedmice.has(i)) continue;
 		var entry = {
-			unostitle: `Sedmica 2-${i}`,
+			unostitle: `Sedmica ${SEMESTAR}-${i}`,
 			weekno: i,
 			list: [
-				{ href: `Predavanje-2-${i}.pdf`, text: `Predavanje 2-${i}` }
+				{ href: `Predavanje-${SEMESTAR}-${i}.pdf`, text: `Predavanje ${SEMESTAR}-${i}` }
 			]
 		};
 		if (!skipvjezbe.has(i)) {
 			entry.list.push(
-				{ href: `Vjezba-2-${i}.pdf`, text: `Vjezba 2-${i}` }
+				{ href: `Vjezba-${SEMESTAR}-${i}.pdf`, text: `Vjezba ${SEMESTAR}-${i}` }
 			);
 		}
 		if (moment() >= moment(startDate, 'YYYY-MM-DD').add(entry.weekno, 'weeks')) {
