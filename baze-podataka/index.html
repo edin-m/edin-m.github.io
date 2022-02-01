@@ -42,35 +42,20 @@ var datatable = [
 		unostitle: 'Materijal',
 		weekno: -1,
 		list: [
-			{
-				href: 'nastavni_kalendar_2021-2022.pdf',
-				text: 'nastavni_kalendar_2021-2022.pdf'
-			},
-			{
-				href: 'baze_podataka_npp.pdf',
-				text: 'baze_podataka_npp.pdf'
-			},
-			{
-				href: 'sql-referenca.pdf',
-				text: 'SQL referenca'
-			},
-			{
-				href: 'testna.sql',
-				text: 'testna.sql'
-			},
-			{
-				href: 'https://www.w3schools.com/sql/default.asp',
-				text: 'w3schools.com/sql'
-			}
-		],
-		ignoreweek: true,
-		hide: false
+			{ href: 'nastavni_kalendar_2021-2022.pdf', text: 'nastavni_kalendar_2021-2022.pdf' },
+			{ href: 'baze_podataka_npp.pdf', text: 'baze_podataka_npp.pdf' },
+			{ href: 'sql-referenca.pdf', text: 'SQL referenca' },
+			{ href: 'testna.sql', text: 'testna.sql' },
+			{ href: 'https://www.w3schools.com/sql/default.asp', text: 'w3schools.com/sql' }
+		]
 	}
 ];
 
+// 13 sedm + tutoriali
+
+
 var additionallist = {
-	/*3: {
-		week: 3,
+	/*6: {
 		items: [
 			{
 				href: 'testna.sql',
@@ -80,29 +65,53 @@ var additionallist = {
 	} //*/
 };
 
+var overwritelist = {
+	19: {
+		items: [ { text: 'Zaključivanje' } ]
+	}
+};
+
+var provjeraznanja = new Set([5,9,13,18]);
 var SEMESTAR = 2;
 var skipsedmice = new Set([14]);
 var skipvjezbe = new Set([1]);
 (function() {
-	for (var i = 19; i >= 1; i--) {
-		if (skipsedmice.has(i)) continue;
+	var predavanjeid = 19;
+	var weekoffset = 0;
+	for (var i = 1; i<=19; i++) {
+		if (skipsedmice.has(i)) {
+			datatable.push({
+				unostitle: `Sedmica ${i}`,
+				weekno: i,
+				list: [{ text: 'Neradna sedmica' }]
+			});
+			weekoffset-=1;
+			continue;
+		}
+		
+		if (provjeraznanja.has(i)) {
+			datatable.push({
+				unostitle: `Sedmica ${i}`,
+				weekno: i,
+				list: [{ text: 'Provjera znanja' }]
+			});
+			weekoffset-=1;
+			continue;
+		}
+		
 		var entry = {
-			unostitle: `Sedmica ${SEMESTAR}-${i}`,
+			unostitle: `Sedmica ${i}`,
 			weekno: i,
 			list: [
-				{ href: `Predavanje-${SEMESTAR}-${i}.pdf`, text: `Predavanje ${SEMESTAR}-${i}` }
+				{ href: `Predavanje-${SEMESTAR}-${i+weekoffset}.pdf`, text: `Predavanje ${SEMESTAR}-${i+weekoffset}` }
 			]
 		};
 		if (!skipvjezbe.has(i)) {
 			entry.list.push(
-				{ href: `Vjezba-${SEMESTAR}-${i}.pdf`, text: `Vjezba ${SEMESTAR}-${i}` }
+				{ href: `Vjezba-${SEMESTAR}-${i+weekoffset}.pdf`, text: `Vjezba ${SEMESTAR}-${i+weekoffset}` }
 			);
 		}
-		if (moment() >= moment(startDate, 'YYYY-MM-DD').add(entry.weekno, 'weeks')) {
-			entry.hide = false;
-		} else {
-			entry.hide = true;
-		}
+
 		
 		if (additionallist[i]) {
 			additionallist[i].items.forEach(function(item) {
@@ -110,9 +119,15 @@ var skipvjezbe = new Set([1]);
 			});
 		}
 		
+		if (overwritelist[i]) {
+			entry.list = overwritelist[i].items;
+		}
+		
 		datatable.push(entry);
 	}
 }());
+
+datatable = [datatable[0], ...datatable.slice(1).reverse()];
 
 var unos_template = String.raw`
 	<div class="unos" data-show="$WEEKNO">
@@ -125,7 +140,8 @@ var unos_template = String.raw`
 		</div>
 	</div>`;
 
-var row_template = String.raw`<a target="_blank" href="$HREF">$TEXT</a><br />`;
+var row_link_template = String.raw`<a target="_blank" href="$HREF">$TEXT</a><br />`;
+var row_template = String.raw`<span>$TEXT</span><br />`;
 
 $(document).ready(function () {
 	
@@ -134,7 +150,12 @@ $(document).ready(function () {
 			if (dataitem.ignore) return;
 			var entries = '';
 			dataitem.list.forEach(function(listitem) {
-				entries += row_template.replace('$HREF', listitem.href).replace('$TEXT', listitem.text);
+				if (listitem.href) {
+					entries += row_link_template.replace('$HREF', listitem.href).replace('$TEXT', listitem.text);
+				}
+				else {
+					entries += row_template.replace('$TEXT', listitem.text);
+				}
 			});
 			var unoshtml = unos_template.replace('$ROWS', entries).replaceAll('$WEEKNO', dataitem.weekno).replace('$UNOSTITLE', dataitem.unostitle);
 			$('#content2').append(unoshtml);
