@@ -3,9 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2022 at 03:29 AM
+-- Generation Time: Feb 13, 2022 at 12:43 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.2.34
+
+CREATE DATABASE IF NOT EXISTS testna;
+
+USE testna;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -118,15 +122,15 @@ CREATE TABLE `ocjene` (
 --
 
 INSERT INTO `ocjene` (`id`, `student_id`, `predmet_id`, `profesor_id`, `ocjena`, `datum`, `komentar`) VALUES
-(1, 1, 1, 1, 4, '2017-02-01', NULL),
+(1, 8, 1, 1, 4, '2017-09-14', NULL),
 (2, 1, 1, 1, 4, '2017-02-03', NULL),
-(3, 1, 2, 1, 5, '2017-03-05', NULL),
+(3, 1, 2, 1, 5, '2017-12-28', NULL),
 (4, 1, 3, 1, 3, '2017-04-11', NULL),
 (5, 1, 4, 1, 1, '2017-05-12', NULL),
 (6, 1, 5, 1, 4, '2017-03-13', NULL),
 (7, 2, 1, 1, 2, '2017-04-01', NULL),
-(8, 2, 2, 2, 4, '2017-05-02', NULL),
-(9, 2, 3, 1, 3, '2017-03-10', NULL),
+(8, 2, 2, 2, 4, '2017-05-02', 'sdfdsf'),
+(9, 2, 3, 1, 3, '2017-03-10', 'sdfsdf'),
 (10, 2, 4, 2, 4, '2017-04-01', NULL),
 (11, 2, 5, 1, 5, '2017-05-01', NULL),
 (12, 1, 1, 1, 4, '2017-02-01', 'dopuna'),
@@ -148,6 +152,32 @@ INSERT INTO `ocjene` (`id`, `student_id`, `predmet_id`, `profesor_id`, `ocjena`,
 (28, 6, 1, 1, 1, '2017-03-01', NULL),
 (29, 6, 2, 1, 5, '2017-04-01', NULL),
 (30, 6, 3, 1, 3, '2017-05-01', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `poruke`
+--
+
+CREATE TABLE `poruke` (
+  `id` int(11) NOT NULL,
+  `posiljalac_id` int(11) NOT NULL,
+  `primalac_id` int(11) NOT NULL,
+  `poruka` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `poruke`
+--
+
+INSERT INTO `poruke` (`id`, `posiljalac_id`, `primalac_id`, `poruka`) VALUES
+(1, 1, 2, 'poruk'),
+(2, 1, 2, 'poruk 1 2'),
+(3, 2, 3, 'poruk 2 3'),
+(4, 1, 3, 'poruk 1 3'),
+(5, 2, 1, 'poruk 2 1'),
+(6, 3, 1, 'poruk 3 1'),
+(7, 3, 2, 'poruk 3 2');
 
 -- --------------------------------------------------------
 
@@ -228,7 +258,7 @@ INSERT INTO `studenti` (`id`, `ime`, `prezime`, `grad`, `datum_rodjenja`, `upis`
 (6, 'Dino', 'Dinovic', 'Mostar', '2002-01-04', '2020-01-04', NULL),
 (7, 'Alina', 'Alinovic', 'Sarajevo', '2002-01-04', '2020-01-04', NULL),
 (8, 'Alisa', 'Alisovic', 'Mostar', '2002-01-04', '2017-03-04', NULL),
-(101, 'Bakir', 'Kadic', 'Zenica', '2002-03-04', '2017-01-04', NULL),
+(101, 'Bakir', 'Kadic', 'Zenica', '2002-03-04', '2017-01-04', '678d658eb40259754d7346b6d2eba579f677d17d'),
 (102, 'Bakir', 'Kadric', 'Zenica', '2002-01-20', '2020-01-04', NULL);
 
 -- --------------------------------------------------------
@@ -284,6 +314,12 @@ ALTER TABLE `ocjene`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `poruke`
+--
+ALTER TABLE `poruke`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `predmeti`
 --
 ALTER TABLE `predmeti`
@@ -334,6 +370,12 @@ ALTER TABLE `narudzbe`
 --
 ALTER TABLE `ocjene`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `poruke`
+--
+ALTER TABLE `poruke`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `predmeti`
