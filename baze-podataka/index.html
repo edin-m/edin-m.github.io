@@ -69,11 +69,30 @@ var additionallist = {
 	3: { items: [ { text: 'Rješenja 2-2', href: 'Rjesenja-2-2.pdf' } ] },
 	4: {
 		items: [
-			{ text: 'Test 1 Primjer', href:'Test-1-primjer.pdf' },
 			{ text: 'Rješenja 2-3', href: 'Rjesenja-2-3.pdf' },
 // 			{ text: 'Rješenja 2-4', href: 'Rjesenja-2-4.pdf' }
 		]
-	}
+	},
+	5: {
+		items: [
+			{ text: 'Test 1 Primjer', href:'Test-1-primjer.pdf' },
+		]
+	},
+	11: {
+		items: [
+			{ text: 'Test 2 Primjer', href:'Test-2-primjer.pdf' },
+		]
+	},
+	15: {
+		items: [
+			{ text: 'Rok za praktične radove i referate (kraj dana)' },
+		]
+	},
+	17: {
+		items: [
+			{ text: 'Test 3 Primjer', href:'Test-3-primjer.pdf' },
+		]
+	},
 	/*6: {
 		items: [
 			{
@@ -85,13 +104,21 @@ var additionallist = {
 };
 
 var overwritelist = {
+	14: {
+		items: [ { text: 'Neradni dan' } ]
+	},
 	19: {
 		items: [ { text: 'Zaključivanje' } ]
 	}
 };
 
-var provjeraznanja = new Set([5,10,13,18]);
-var vjezbanje = new Set([6]);
+var predavanjaSedmice = new Set([1,2,3,4,7,8,9,12,13,15,16,18]);
+var vjezbeSedmice = new Set([2,3,4,7,8,9,12,13]);
+var vjezbanjeSedmice = new Set([6,10]);
+var testSedmice = new Set([5,11,17]);
+
+var provjeraznanja = new Set([5,11,18]);
+var vjezbanje = new Set([6,10]);
 var SEMESTAR = 2;
 var skipsedmice = new Set([14]);
 var skipvjezbe = new Set([1]);
@@ -99,50 +126,32 @@ var skipvjezbe = new Set([1]);
 (function() {
 	var predavanjeid = 19;
 	var weekoffset = 0;
+	var predavanjeCounter = 1;
 	for (var i = 1; i<=19; i++) {
-		if (skipsedmice.has(i)) {
-			datatable.push({
-				unostitle: `Sedmica ${i}`,
-				weekno: i,
-				list: [{ text: 'Neradna sedmica' }]
-			});
-			weekoffset-=1;
-			continue;
-		}
-		
-		if (provjeraznanja.has(i)) {
-			datatable.push({
-				unostitle: `Sedmica ${i}`,
-				weekno: i,
-				list: [{ text: 'Provjera znanja' }]
-			});
-			weekoffset-=1;
-			continue;
-		}
-		
-		if (vjezbanje.has(i)) {
-			datatable.push({
-				unostitle: `Sedmica ${i}`,
-				weekno: i,
-				list: [{ text: 'Vježbanje' }]
-			});
-			weekoffset-=1;
-			continue;
-		}
+		var parnaStr = i % 2 == 1 ? '— I' : '— II';
+		var sedmicaTitle = `Sedmica ${i} ${parnaStr}`;
 		
 		var entry = {
-			unostitle: `Sedmica ${i}`,
+			unostitle: `Sedmica ${i} ${parnaStr}`,
 			weekno: i,
-			list: [
-				{ href: `Predavanje-${SEMESTAR}-${i+weekoffset}.pdf`, text: `Predavanje ${SEMESTAR}-${i+weekoffset}` }
-			]
+			list: []
 		};
-		if (!skipvjezbe.has(i)) {
-			entry.list.push(
-				{ href: `Vjezba-${SEMESTAR}-${i+weekoffset}.pdf`, text: `Vjezba ${SEMESTAR}-${i+weekoffset}` }
-			);
+		
+		if (predavanjaSedmice.has(i)) {
+			entry.list.push({ href: `Predavanje-${SEMESTAR}-${predavanjeCounter}.pdf`, text: `Predavanje ${SEMESTAR}-${predavanjeCounter}` });
 		}
-
+		
+		if (vjezbeSedmice.has(i)) {
+			entry.list.push({ href: `Vjezba-${SEMESTAR}-${predavanjeCounter}.pdf`, text: `Vjezba ${SEMESTAR}-${predavanjeCounter}` });
+		}
+		
+		if (testSedmice.has(i)) {
+			entry.list.push({ text: `Provjera znanja` });
+		}
+		
+		if (vjezbanjeSedmice.has(i)) {
+			entry.list.push({ text: `Vježbanje` });
+		}
 		
 		if (additionallist[i]) {
 			additionallist[i].items.forEach(function(item) {
@@ -154,9 +163,15 @@ var skipvjezbe = new Set([1]);
 			entry.list = overwritelist[i].items;
 		}
 		
-		datatable.push(entry);
+		if (predavanjaSedmice.has(i)) {
+			predavanjeCounter++;
+		}
+		
+		datatable.push(entry); 
 	}
 }());
+
+
 
 datatable = [datatable[0], ...datatable.slice(1).reverse()];
 
@@ -205,7 +220,7 @@ $(document).ready(function () {
 	$(".entrydate").each(function() {
 		var weeks = Number($(this).attr('data-show'));
 		if (weeks < 0) return;
-		var theweek =  moment(startDate, 'YYYY-MM-DD').add(weeks+1, 'weeks');
+		var theweek =  moment(startDate, 'YYYY-MM-DD').add(weeks+1, 'weeks').subtract(1, 'days');
 		var parent = $(this).parents('.unos');
 		if (moment() >= theweek) {
 			parent.addClass('highlight');
