@@ -66,14 +66,18 @@ var datatable = [
 
 
 var additionallist = {
+	2: { 
+		items: [ 
+			{ text: 'Rješenja 2-2', href: 'Rjesenja-2-2.pdf' }
+		] 
+	},
 	3: { 
 		items: [ 
-		/*	{ text: 'Rješenja 2-2', href: 'Rjesenja-2-2.pdf' }  */
+			{ text: 'Rješenja 2-3', href: 'Rjesenja-2-3.pdf' }
 		] 
 	},
 	4: {
 		items: [
-		/*	{ text: 'Rješenja 2-3', href: 'Rjesenja-2-3.pdf' },  */
 /* 			{ text: 'Rješenja 2-4', href: 'Rjesenja-2-4.pdf' }  */
 		]
 	},
@@ -232,7 +236,8 @@ $(document).ready(function () {
 		if (weeks < 0) return;
 		var theweek =  moment(startDate, 'YYYY-MM-DD').add(weeks+1, 'weeks').subtract(1, 'days');
 		var parent = $(this).parents('.unos');
-		if (moment() >= theweek) {
+		console.log(moment().toString(),',,,', moment(theweek).add(1,'days').toString());
+		if (moment() >= moment(theweek).add(1, 'days')) {
 			parent.addClass('highlight');
 		}
 		$(this).html(theweek.format('YYYY-MM-DD'));
