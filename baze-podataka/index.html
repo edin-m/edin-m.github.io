@@ -53,7 +53,7 @@ var datatable = [
 		unostitle: 'Materijal',
 		weekno: -1,
 		list: [
-			{ href: 'nastavni_kalendar_2021-2022.pdf', text: 'nastavni_kalendar_2021-2022.pdf' },
+			{ href: 'nastavni_kalendar_2021-2022-v2.pdf', text: 'nastavni_kalendar_2021-2022-v2.pdf' },
 			{ href: 'baze_podataka_npp.pdf', text: 'baze_podataka_npp.pdf' },
 			{ href: 'sql-referenca.pdf', text: 'SQL referenca' },
 			{ href: 'testna.sql', text: 'testna.sql' },
@@ -83,30 +83,37 @@ var additionallist = {
 	},
 	5: {
 		items: [
+			{ text: 'Nastava za 28.02. se odvija 02.03. u srijedu.' },
 			{ text: 'Test 1 Primjer', href:'Test-1-primjer.pdf' },
 		]
 	},
 	11: {
 		items: [
 			{ text: 'Test 2 Primjer', href:'Test-2-primjer.pdf' },
-		]
-	},
-	11: {
-		items: [
 			{ text: 'Teme za praktične radove', href:'' },
-			{ text: 'Teme za referate', href:'' },
+			{ text: 'Teme za referate', href:'' }
 		]
 	},
-	15: {
+	12: {
 		items: [
-			/*{ text: 'Rok za praktične radove i referate (kraj dana)' },//*/
+			{ text: 'Nenastavni dan.' },
 		]
 	},
-	17: {
+	13: {
+		items: [
+			{ text: 'Nastava se odvija 28.04. jer je 25.04. nenastavni dan' }
+		]
+	},
+	19: {
 		items: [
 			{ text: 'Test 3 Primjer', href:'Test-3-primjer.pdf' },
 		]
 	},
+	20: {
+		items: [ 
+			{ text: 'Zaključivanje' }
+		]
+	}
 	/*6: {
 		items: [
 			{
@@ -120,28 +127,25 @@ var additionallist = {
 var overwritelist = {
 	14: {
 		items: [ { text: 'Neradni dan' } ]
-	},
-	19: {
-		items: [ { text: 'Zaključivanje' } ]
 	}
 };
 
-var predavanjaSedmice = new Set([1,2,3,4,7,8,9,12,13,15,16,18]);
-var vjezbeSedmice = new Set([2,3,4,7,8,9,12,13]);
+var predavanjaSedmice = new Set([1,2,3,4,7,8,9,13,15,16,17,18]);
+var vjezbeSedmice = new Set([2,3,4,7,8,9,13,15,16,17,18]);
 var vjezbanjeSedmice = new Set([6,10]);
-var testSedmice = new Set([5,11,17]);
+var testSedmice = new Set([5,11,19]);
 
-var provjeraznanja = new Set([5,11,18]);
+var provjeraznanja = new Set([5,11,19]);
 var vjezbanje = new Set([6,10]);
 var SEMESTAR = 2;
 var skipsedmice = new Set([14]);
 var skipvjezbe = new Set([1]);
 
 (function() {
-	var predavanjeid = 19;
+	var predavanjeid = 20;
 	var weekoffset = 0;
 	var predavanjeCounter = 1;
-	for (var i = 1; i<=19; i++) {
+	for (var i = 1; i<=predavanjeid; i++) {
 		var parnaStr = i % 2 == 1 ? '— I' : '— II';
 		var sedmicaTitle = `Sedmica ${i} ${parnaStr}`;
 		
@@ -236,7 +240,6 @@ $(document).ready(function () {
 		if (weeks < 0) return;
 		var theweek =  moment(startDate, 'YYYY-MM-DD').add(weeks+1, 'weeks').subtract(1, 'days');
 		var parent = $(this).parents('.unos');
-		console.log(moment().toString(),',,,', moment(theweek).add(1,'days').toString());
 		if (moment() >= moment(theweek).add(1, 'days')) {
 			parent.addClass('highlight');
 		}
