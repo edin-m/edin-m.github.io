@@ -57,7 +57,9 @@ var datatable = [
 			{ href: 'baze_podataka_npp.pdf', text: 'baze_podataka_npp.pdf' },
 			{ href: 'sql-referenca.pdf', text: 'SQL referenca' },
 			{ href: 'testna.sql', text: 'testna.sql' },
-			{ href: 'https://www.w3schools.com/sql/default.asp', text: 'w3schools.com/sql' }
+			{ href: 'https://www.w3schools.com/sql/default.asp', text: 'w3schools.com/sql' },
+			{ href: 'testna.jpg', text: 'Šema tesnte baze' }
+			// https://codeload.github.com/datacharmer/test_db/zip/refs/heads/master
 		]
 	}
 ];
@@ -106,17 +108,17 @@ var additionallist = {
 		items: [
 			{ text: 'Rješenja 2-7', href: 'Rjesenja-2-7.pdf' },
 			{ text: 'Zadaća 2-3', href: 'Zadaca-2-3.pdf' },
-			{ text: 'Rok za predaju zadaće 3 je početak časa 11.04.' }
+			{ text: 'Rok za predaju zadaće 3 je početak časa 04.04.' }
 		]
 	},
-	11: {
+	10: {
 		items: [
 			{ text: 'Test 2 Primjer', href:'Test-2-primjer.pdf' },
 			{ text: 'Test 2 Primjer Rješenje', href:'Test-2-primjer-rjesenje.pdf' },
 			{ text: 'Teme za praktične radove', href:'teme-prakticni-radovi.pdf' },
 			{ text: 'Teme za referate', href:'teme-referati.pdf' },
-			{ text: 'Rok za prijavu praktičnih radova i referata je od 12.04. do kraja dana 19.04.' },
-			{ text: 'Rok za predaju praktičnih radova i referata je na času 23.05.' }
+			{ text: 'Rok za prijavu praktičnih radova i referata je od 05.04. do kraja dana 19.04.' },
+			{ text: 'Rok za predaju praktičnih radova i referata je na času 09.05.' }
 		]
 	},
 	12: {
@@ -163,8 +165,8 @@ var overwritelist = {
 
 var predavanjaSedmice = new Set([1,2,3,4,7,8,9,13,15,16,17,18]);
 var vjezbeSedmice = new Set([2,3,4,7,8,9,13,15,16,17]);
-var vjezbanjeSedmice = new Set([6,10]);
-var testSedmice = new Set([5,11,19]);
+var vjezbanjeSedmice = new Set([6]);
+var testSedmice = new Set([5,10,19]);
 
 var provjeraznanja = new Set([5,11,19]);
 var vjezbanje = new Set([6,10]);
