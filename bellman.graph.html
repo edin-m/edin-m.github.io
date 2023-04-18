@@ -1,0 +1,179 @@
+
+const bellman_ford = (V, edges, S) => {
+    const dist = new Array(V).fill(Number.MAX_SAFE_INTEGER);
+    dist[S] = 0
+    // why V-1 times because it will make sure each and every vertex is visited
+    for(let ind=0; ind < V-1; ind++){
+        for(let [u, v, w] of edges){
+            if(dist[u] !==Number.MAX_SAFE_INTEGER && 
+                dist[u] + w < dist[v]){
+                dist[v] = dist[u] + w
+            }
+        }
+    }
+	// nth relaxation to check negative cycle
+    for(let [u, v, w] of edges){
+        if(dist[u] !==Number.MAX_SAFE_INTEGER && 
+            dist[u] + w < dist[v]){
+            return [-1]
+        }
+    }
+    
+    return dist
+}
+
+var window = window || {}
+
+for (let i = 0; i < 20; i++) {
+  const key = String.fromCharCode('A'.charCodeAt(0) + i)
+  window[key] = i;
+}
+
+// A - T
+
+// const graph1 = {
+//   nodes: 5,
+//   start: A,
+//   edges: [
+//     [A, B, 6],
+//     [A, C, 4],
+//     [A, D, 5],
+//     [B, E, -1],
+//     [C, B, -2],
+//     [C, E, 3],
+//     [D, C, -2],
+//     [D, F, -1],
+//     [E, F, 3],
+//   ]
+// }
+
+// const edges = [
+//   [A, B, 6],
+//   [A, C, 4],
+//   [A, D, 5],
+//   [B, E, -1],
+//   [C, B, -2],
+//   [C, E, 3],
+//   [D, C, -2],
+//   [D, F, -1],
+//   [E, F, 3],
+// ]
+
+// // bellman_ford(6, edges, 0)
+
+// bellman_ford(graph1.nodes, graph1.edges, graph1.start)
+
+function randomInt(min, max) {
+  // max excluded
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+const allnodes = [
+  A, B, C, D, E, F, G, H, I, J, K
+]
+
+function twoRandomNodes(numnodes) {
+  const a = randomInt(0, numnodes);
+  do {
+    b = randomInt(0, numnodes)
+  } while (a == b);
+  return [allnodes[a], allnodes[b]];
+}
+
+function toCharCode(s) {
+  return s.charCodeAt(0)
+}
+
+function fromCharCode(num) {
+  return String.fromCharCode('A'.charCodeAt(0) + num)
+}
+
+const maxiter = 50
+function generateGraph(numnodes, numedges, start, iter=0) {
+  // console.log('iter ', iter, maxiter, iter > maxiter);
+  if (iter > maxiter) {
+    // console.log('not found')
+    return;
+  }
+  const graph = {
+    nodes: numnodes,
+    start,
+    edges: []
+  }
+  
+  const set = new Set();
+  
+  let i = 0;
+  while (i < 1000 && graph.edges.length < numedges) {
+    i++;
+    const edge = twoRandomNodes(numnodes);
+    const left = fromCharCode(edge[0]);
+    const right = fromCharCode(edge[1]);
+    // console.log(left, right, set.has(left+right), set.has(right + left))
+    if (set.has(left + right) || set.has(right + left)) {
+      continue;
+    }
+    set.add(left + right);
+    edge.push(randomInt(-10, 10));
+    graph.edges.push(edge);
+  }
+  
+  const res = [];
+  if (res.length === 1) {
+    return generateGraph(numnodes, numedges, start, ++iter);
+  }
+  
+  const gres = bellman_ford(graph.nodes, graph.edges, graph.start)
+  if (gres.length === 1 && gres[0] === -1) {
+    return generateGraph(numnodes, numedges, start, ++iter);
+  }
+  
+  if (gres.some(item => item > 100000000)) {
+    return generateGraph(numnodes, numedges, start, ++iter)
+  }
+  
+  return graph
+}
+
+function printGraph(graph) {
+  let str = '\n'
+  console.log('graph:', graph.nodes)
+  for (let i = 0; i < graph.nodes; i++) {
+    const letter = fromCharCode(i)
+    str += letter + '\n'
+  }
+  for (let edge of graph.edges) {
+    const left = fromCharCode(edge[0])
+    const right = fromCharCode(edge[1])
+    str += `${left} ${right} ${edge[2]}\n`
+  }
+  console.log(str)
+  const res = bellman_ford(graph.nodes, graph.edges, graph.start);
+  console.log(res)
+}
+
+let find = 0;
+let i = 0;
+while (i < 10000 && find < 10) {
+
+  const graph = generateGraph(6, 9, A, 0);
+  if (!graph) {
+    // console.log('graph empty')
+    continue;
+  }
+  console.log('NEW GRAPH ===============')
+  const res = bellman_ford(graph.nodes, graph.edges, graph.start);
+  find++
+
+  printGraph(graph)
+}
+
+
+
+
+
+
+
+
+
+
