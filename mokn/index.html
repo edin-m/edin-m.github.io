@@ -9,7 +9,7 @@
         for (let file of data) {
           htmlString += `<li><a href="${window.location.origin + '/' + file.path}">${file.name}</a></li>`;
         }
-
+    
         htmlString += '</ul>';
         document.getElementsByTagName('body')[0].innerHTML = htmlString;
       })()
