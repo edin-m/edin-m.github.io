@@ -1,0 +1,22 @@
+{
+  "name": "photo-sphere-viewer-webpack",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "webpack serve --open",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "@photo-sphere-viewer/core": "^5.13.2",
+    "@photo-sphere-viewer/markers-plugin": "^5.13.2",
+    "three": "^0.176.0"
+  },
+  "devDependencies": {
+    "css-loader": "^6",
+    "html-webpack-plugin": "^5",
+    "style-loader": "^3",
+    "webpack": "^5",
+    "webpack-cli": "^5",
+    "webpack-dev-server": "^4"
+  }
+}

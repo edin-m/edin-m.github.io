@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin/index.min.css" />
+
+	<style>
+	@import 'https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.css';
+
+	html, body, #viewer {
+	  width: 100%;
+	  height: 100%;
+	  margin: 0;
+	  font-family: sans-serif;
+	}
+	.marker-arrow {
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+	</style>
+<head>
+  <meta charset="UTF-8">
+  <title>Photo Sphere Viewer + Webpack</title>
+</head>
+<body>
+  <div id="viewer" style="width: 100vw; height: 100vh;"></div>
+  
+  
+  <custom-marker id="custom-marker-element" style="display: none">
+    <img src="https://photo-sphere-viewer-data.netlify.app/assets/sphere-small.jpg" />
+    <h2>Custom element</h2>
+    <p>Use an existing element as marker. This WebComponent contains it's own animations and tooltip.</p>
+</custom-marker>
+</body>
+</html>

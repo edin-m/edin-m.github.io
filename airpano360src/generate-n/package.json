@@ -1,0 +1,18 @@
+{
+  "name": "generate-n",
+  "version": "1.0.0",
+  "main": "generate-neighbors.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "exif-js": "^2.3.0",
+    "exifr": "^7.1.3",
+    "fs-extra": "^11.3.0",
+    "geolib": "^3.3.4",
+    "glob": "^11.0.2"
+  }
+}
