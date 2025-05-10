@@ -1,2 +1,4 @@
 node_modules
+public/panos
+!public/panos/.gitkeep
 dist

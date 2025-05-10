@@ -1,14 +1,16 @@
 const fs = require('fs-extra');
 const glob = require('glob');
 const exifr = require('exifr');
+const path = require('path');
 
-const IMAGE_FOLDER = '../panos'; // your image folder
-const OUTPUT_FILE = './panoramas-with-neighbors.json';
+const IMAGE_FOLDER = '../viewer/public/panos'; // your image folder
+const OUTPUT_FILE = '../viewer/public/panoramas-with-neighbors.json';
 
 const CLOSE_RADIUS = 10;  // meters — used to count "clutter"
 const DISTANCE_LEVELS = [
-  { count: 6, maxDist: 100 },
-  { count: 3, maxDist: 200 },
+  { count: 8, maxDist: 50 },
+  { count: 5, maxDist: 100 },
+  { count: 3, maxDist: 250 },
   { count: 1, maxDist: 500 },
 ];
 
@@ -41,12 +43,13 @@ function computeBearing(p1, p2) {
 
 async function extractMetadata(imagePath) {
   const gps = await exifr.parse(imagePath);
+  console.log(imagePath);
   if (!gps || !gps.latitude || !gps.longitude) {
     throw new Error(`Missing GPS info in ${imagePath}`);
   }
   return {
-    id: imagePath.split('/').pop().replace('\\', '/'),
-    file: imagePath.replace('\\', '/'),
+    id: `panos/${path.basename(imagePath)}`,
+    file: `panos/${path.basename(imagePath)}`,
     lat: gps.latitude,
     lon: gps.longitude,
     alt: gps.GPSAltitude || 0,

@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const inputFolder = '../originals'; // your input folder
-const outputFolder = '../panos'; // your output folder
+const outputFolder = '../viewer/public/panos'; // your output folder
 
 // Ensure output directory exists
 if (!fs.existsSync(outputFolder)) {
@@ -26,6 +26,7 @@ const processImages = async () => {
         try {
             await sharp(inputPath)
                 // .resize({ width: 8000 }) // Uncomment to resize width, keeping aspect ratio
+				.withMetadata()
                 .jpeg({ quality: 75 }) // Or .webp({ quality: 75 }) to convert to WebP
                 .toFile(outputPath);
 

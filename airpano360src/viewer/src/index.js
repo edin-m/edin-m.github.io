@@ -1,13 +1,5 @@
 import { Viewer } from '@photo-sphere-viewer/core';
- import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
-/*
-const viewer = new Viewer({
-  //container: document.getElementById('viewer'),
-  container: 'viewer',
-  panorama: 'DJI_20250509183607_0330_D.JPG',
-  defaultZoomLvl: 0
-});
-//*/
+import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
 
 
 let viewer;
@@ -68,11 +60,12 @@ function showMarkers(pano) {
 	  },
 	  size: { 
 		width: getMarkerSizeByDistance(neigh.distance, MIN_DIST, MAX_DIST), 
-		height: getMarkerSizeByDistance(neigh.distance, MIN_DIST, MAX_DIST) 
+		height: getMarkerSizeByDistance(neigh.distance, MIN_DIST, MAX_DIST)
 	  },
 	  image: 'https://www.onlygfx.com/wp-content/uploads/2022/03/red-circle-round-3d-button-1.png',
 	  style: {
-		  opacity: getMarkerOpacityByDistance(neigh.distance, MIN_DIST, MAX_DIST)
+		  opacity: getMarkerOpacityByDistance(neigh.distance, MIN_DIST, MAX_DIST),
+		cursor: 'pointer'
 	  },
 	  data: { targetId: neigh.id },
       /*longitude: neigh.bearing,
