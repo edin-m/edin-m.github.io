@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const inputFolder = '../originals'; // your input folder
-const outputFolder = '../pano'; // your output folder
+const outputFolder = '../panos'; // your output folder
 
 // Ensure output directory exists
 if (!fs.existsSync(outputFolder)) {
