@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const glob = require('glob');
 const exifr = require('exifr');
 
-const IMAGE_FOLDER = './panos'; // your image folder
+const IMAGE_FOLDER = '../panos'; // your image folder
 const OUTPUT_FILE = './panoramas-with-neighbors.json';
 
 const CLOSE_RADIUS = 10;  // meters — used to count "clutter"
