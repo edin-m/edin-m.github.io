@@ -86,6 +86,12 @@
         "bearing": 4.724389365814238,
         "distance": 453.12,
         "elevation": -9.9
+      },
+      {
+        "id": "panos/DJI_20250509183607_0330_D.JPG",
+        "bearing": 4.345407434996375,
+        "distance": 439.82,
+        "elevation": -9.9
       }
     ]
   },
@@ -143,6 +149,12 @@
         "bearing": 5.230028125791067,
         "distance": 367.96,
         "elevation": -18.7
+      },
+      {
+        "id": "panos/DJI_20250509183607_0330_D.JPG",
+        "bearing": 4.643600692492578,
+        "distance": 479.86,
+        "elevation": -17.2
       }
     ]
   },
@@ -233,6 +245,12 @@
         "bearing": 5.966776186975042,
         "distance": 282.65,
         "elevation": -67.3
+      },
+      {
+        "id": "panos/DJI_20250509183607_0330_D.JPG",
+        "bearing": 5.539528067369582,
+        "distance": 487.76,
+        "elevation": -65.5
       }
     ]
   },
@@ -272,6 +290,12 @@
         "bearing": 0.4293658915914138,
         "distance": 229.4,
         "elevation": -67.3
+      },
+      {
+        "id": "panos/DJI_20250509183607_0330_D.JPG",
+        "bearing": 5.810366199329217,
+        "distance": 336.93,
+        "elevation": -65.5
       }
     ]
   },
@@ -328,6 +352,12 @@
         "id": "panos/DJI_20250509183747_0331_D.JPG",
         "bearing": 5.7985328255382775,
         "distance": 353.56,
+        "elevation": 2
+      },
+      {
+        "id": "panos/DJI_20250509183607_0330_D.JPG",
+        "bearing": 5.59853616373417,
+        "distance": 193.18,
         "elevation": 2
       }
     ]
@@ -392,6 +422,12 @@
         "bearing": 5.449324809176266,
         "distance": 384,
         "elevation": 1.8
+      },
+      {
+        "id": "panos/DJI_20250509183607_0330_D.JPG",
+        "bearing": 5.086209596413305,
+        "distance": 259.75,
+        "elevation": 1.8
       }
     ]
   },
@@ -437,6 +473,12 @@
         "bearing": 4.4617974224258665,
         "distance": 208.13,
         "elevation": 1.5
+      },
+      {
+        "id": "panos/DJI_20250509183607_0330_D.JPG",
+        "bearing": 3.7789741665683025,
+        "distance": 267.3,
+        "elevation": 1.5
       }
     ]
   },
@@ -470,6 +512,69 @@
         "bearing": 1.3201743684454712,
         "distance": 208.13,
         "elevation": -1.5
+      },
+      {
+        "id": "panos/DJI_20250509183607_0330_D.JPG",
+        "bearing": 2.8864653070946247,
+        "distance": 168.66,
+        "elevation": 0
+      }
+    ]
+  },
+  {
+    "id": "panos/DJI_20250509183607_0330_D.JPG",
+    "file": "panos/DJI_20250509183607_0330_D.JPG",
+    "lat": 43.84740447222222,
+    "lon": 18.356982277777778,
+    "alt": 579.813,
+    "neighbors": [
+      {
+        "id": "panos/DJI_20250509185157_0340_D.JPG",
+        "bearing": 1.203752900269329,
+        "distance": 439.82,
+        "elevation": 9.9
+      },
+      {
+        "id": "panos/DJI_20250509185018_0339_D.JPG",
+        "bearing": 1.5019359082306192,
+        "distance": 479.86,
+        "elevation": 17.2
+      },
+      {
+        "id": "panos/DJI_20250509184621_0337_D.JPG",
+        "bearing": 2.397886080545936,
+        "distance": 487.76,
+        "elevation": 65.5
+      },
+      {
+        "id": "panos/DJI_20250509184443_0336_D.JPG",
+        "bearing": 2.668750853916661,
+        "distance": 336.93,
+        "elevation": 65.5
+      },
+      {
+        "id": "panos/DJI_20250509184311_0335_D.JPG",
+        "bearing": 2.4569250920263954,
+        "distance": 193.18,
+        "elevation": -2
+      },
+      {
+        "id": "panos/DJI_20250509184132_0334_D.JPG",
+        "bearing": 1.9445804866028933,
+        "distance": 259.75,
+        "elevation": -1.8
+      },
+      {
+        "id": "panos/DJI_20250509183937_0332_D.JPG",
+        "bearing": 0.6373575305254455,
+        "distance": 267.3,
+        "elevation": -1.5
+      },
+      {
+        "id": "panos/DJI_20250509183747_0331_D.JPG",
+        "bearing": 6.028064378190308,
+        "distance": 168.66,
+        "elevation": 0
       }
     ]
   }

@@ -9,6 +9,7 @@
   "dependencies": {
     "@photo-sphere-viewer/core": "^5.13.2",
     "@photo-sphere-viewer/markers-plugin": "^5.13.2",
+    "leaflet": "^1.9.4",
     "three": "^0.176.0"
   },
   "devDependencies": {
